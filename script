@@ -1,0 +1,47 @@
+import numpy as np
+import pandas as pd
+import re
+
+
+def main():
+    """
+    Musical notes are on an additive scale, but the corresponding frequencies are multiplicative. The values are also
+    represented on a mod 12 system. What will happen if I put them in a matrix and transform them? I'd also like to use
+    pandas to generate another dimension of data from existing 1d array.
+    :return:
+    """
+    with open("octave.txt", "r") as file:
+        list_notes = []
+        first_octave = []
+        for line in file:
+            sub_list = line.split(" ")
+            for item in sub_list:
+                if re.search("[a-z]", item):
+                    list_notes.append(item)
+                else:
+                    first_octave.append(float(item.strip()))
+
+    tuple_notes = tuple(list_notes)
+    tuple_frequencies = tuple(first_octave)
+    solfege = dict(zip(tuple_notes, tuple_frequencies))
+    second_octave = get_next_octave(first_octave)
+    third_octave = get_next_octave(second_octave)
+    fourth_octave = get_next_octave(third_octave)
+    fifth_octave = get_next_octave(fourth_octave)
+    sixth_octave = get_next_octave(fifth_octave)
+    seventh_octave = get_next_octave(sixth_octave)
+    eighth_octave = get_next_octave(seventh_octave)
+    
+    s = pd.Series(solfege)  # a Series
+
+
+def get_next_octave(octave):
+    next_octave = []
+    for note in octave:
+        value = note * 2
+        next_octave.append(value)
+    return next_octave
+
+
+if __name__ == '__main__':
+    main()
