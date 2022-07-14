@@ -31,8 +31,10 @@ def main():
     sixth_octave = get_next_octave(fifth_octave)
     seventh_octave = get_next_octave(sixth_octave)
     eighth_octave = get_next_octave(seventh_octave)
-    
-    s = pd.Series(solfege)  # a Series
+    s = pd.Series(solfege)
+
+    a1D = np.array([[first_octave, second_octave], [third_octave, fourth_octave]])
+    print(a1D)
 
 
 def get_next_octave(octave):
